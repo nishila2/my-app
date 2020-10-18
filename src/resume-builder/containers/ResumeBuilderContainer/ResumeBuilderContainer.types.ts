@@ -11,6 +11,7 @@ export interface IResumeFormBasic {
 
 export interface IResumeForm {
   basicDetails: IResumeFormBasic;
+  skills: string[];
 }
 
 export interface IResumeState {

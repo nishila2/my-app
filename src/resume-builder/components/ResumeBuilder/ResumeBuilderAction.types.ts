@@ -11,3 +11,9 @@ export interface IResumeBuilderActionProps {
   onReset: () => void;
   onSave: () => void;
 }
+
+export interface IResumeSkillsProps {
+  skills: string[];
+  items: string[];
+  onUpdateSkills: (newSkills: string[]) => void;
+}
