@@ -14,26 +14,24 @@ import {
   IResumeState,
   skills,
 } from ".";
+import { editState } from "..";
 
 export const ResumeBuilderContainer: React.FC<IResumeBuilderContainerProps> = ({ resumeId }) => {
   const [state, setState] = React.useState<IResumeState>(initialState);
 
   React.useEffect(() => {
     // fetch using resume Id
-    setState((prevState) => {
-      return {
-        ...prevState,
-        loading: true,
-      };
-    });
-    setTimeout(() => {
+    if (resumeId && resumeId >= 0) {
       setState((prevState) => {
         return {
           ...prevState,
-          loading: false,
+          loading: true,
         };
       });
-    }, 1000);
+      setTimeout(() => {
+        setState(editState);
+      }, 1000);
+    }
   }, [resumeId]);
 
   React.useEffect(() => {

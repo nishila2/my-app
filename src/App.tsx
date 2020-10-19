@@ -12,7 +12,7 @@ export const App = () => {
         <Route exact={true} path={"/"}>
           <Home />
         </Route>
-        <Route path={"/resume-builder/:id(\\d+)?"}>
+        <Route path={"/resume-builder/:resumeId(\\d+)?"}>
           <ResumeBuilder />
         </Route>
       </Switch>

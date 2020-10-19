@@ -46,6 +46,24 @@ export const initialStateWorks = {
   year: "",
 };
 
+export const editStateEducation = {
+  degree: "",
+  institute: "",
+  year: "2020",
+};
+
+export const editStateWorks1 = {
+  designation: "2010",
+  company: "2010",
+  year: "2010",
+};
+
+export const editStateWorks2 = {
+  designation: "2020",
+  company: "2020",
+  year: "2020",
+};
+
 export const skills = [
   "Asp.Net",
   "Css",
@@ -73,5 +91,21 @@ export const initialState = {
     skills: [],
     educations: [initialStateEducation],
     experiences: [initialStateWorks],
+  },
+} as IResumeState;
+
+export const editState = {
+  loading: false,
+  refresh: false,
+  formState: {
+    basicDetails: {
+      name: "Nishil",
+      phone: "9562161303",
+      address: "Kappad",
+      email: "nishila2@gmail.com",
+    },
+    skills: [],
+    educations: [editStateEducation],
+    experiences: [editStateWorks1, editStateWorks2],
   },
 } as IResumeState;
