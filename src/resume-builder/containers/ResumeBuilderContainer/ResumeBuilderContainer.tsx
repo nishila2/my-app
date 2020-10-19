@@ -1,35 +1,19 @@
 import React from "react";
-import { ResumeBuilderAction, ResumeBuilderBasicDetails } from "resume-builder/components";
-import { ResumeSkills } from "resume-builder/components/ResumeBuilder/ResumeSkills";
-import { IResumeBuilderContainerProps, IResumeState } from ".";
-
-const skills = [
-  "Asp.Net",
-  "Css",
-  "Jquery",
-  "Html",
-  "ReactJS",
-  "TypeScript",
-  "MsSQL",
-  "MySQL",
-  "Java",
-  "Docker",
-  "Azure",
-];
-
-const initialState = {
-  loading: false,
-  refresh: false,
-  formState: {
-    basicDetails: {
-      name: "",
-      phone: "",
-      address: "",
-      email: "",
-    },
-    skills: [],
-  },
-} as IResumeState;
+import {
+  ResumeBuilderAction,
+  ResumeBuilderBasicDetails,
+  ResumeEducation,
+  ResumeSkills,
+  ResumeWork,
+} from "resume-builder/components";
+import {
+  initialState,
+  initialStateEducation,
+  initialStateWorks,
+  IResumeBuilderContainerProps,
+  IResumeState,
+  skills,
+} from ".";
 
 export const ResumeBuilderContainer: React.FC<IResumeBuilderContainerProps> = ({ resumeId }) => {
   const [state, setState] = React.useState<IResumeState>(initialState);
@@ -116,6 +100,74 @@ export const ResumeBuilderContainer: React.FC<IResumeBuilderContainerProps> = ({
     [setState]
   );
 
+  const onUpdateEducations = React.useCallback(
+    (index: number, id: string, value: string) => {
+      setState((prevState) => {
+        const { formState } = prevState;
+        const items = [...formState.educations];
+        const item = { ...items[index], [id]: value };
+        items[index] = item;
+        return {
+          ...prevState,
+          formState: {
+            ...formState,
+            educations: items,
+          },
+        };
+      });
+    },
+    [setState]
+  );
+
+  const onUpdateWorks = React.useCallback(
+    (index: number, id: string, value: string) => {
+      setState((prevState) => {
+        const { formState } = prevState;
+        const items = [...formState.experiences];
+        const item = { ...items[index], [id]: value };
+        items[index] = item;
+        return {
+          ...prevState,
+          formState: {
+            ...formState,
+            experiences: items,
+          },
+        };
+      });
+    },
+    [setState]
+  );
+
+  const onAddNewEducation = React.useCallback(() => {
+    setState((prevState) => {
+      const { formState } = prevState;
+      const items = [...formState.educations];
+      items.push(initialStateEducation);
+      return {
+        ...prevState,
+        formState: {
+          ...formState,
+          educations: items,
+        },
+      };
+    });
+  }, [setState]);
+
+  const onAddNewWork = React.useCallback(() => {
+    setState((prevState) => {
+      const { formState } = prevState;
+      const items = [...formState.experiences];
+      items.push(initialStateWorks);
+      return {
+        ...prevState,
+        formState: {
+          ...formState,
+          experiences: items,
+        },
+      };
+    });
+  }, [setState]);
+
   const { loading, formState } = state;
 
   return (
@@ -130,6 +182,14 @@ export const ResumeBuilderContainer: React.FC<IResumeBuilderContainerProps> = ({
           <ResumeBuilderBasicDetails onChange={onChangeBasicDetails} model={formState.basicDetails} />
           <div className="mb-4" />
           <ResumeSkills skills={formState.skills} items={skills} onUpdateSkills={onUpdateSkills} />
+          <div className="mb-4" />
+          <ResumeEducation
+            educations={formState.educations}
+            onUpdateEducations={onUpdateEducations}
+            onAddNewEducation={onAddNewEducation}
+          />
+          <div className="mb-4" />
+          <ResumeWork experiences={formState.experiences} onUpdateWork={onUpdateWorks} onAddNewWork={onAddNewWork} />
           <div className="mb-4" />
           <ResumeBuilderAction onSave={onSave} onReset={onReset} isDirty={false} isSubmitting={false} />
         </>

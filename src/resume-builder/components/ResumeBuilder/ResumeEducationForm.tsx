@@ -1,73 +1,55 @@
 import React from "react";
-import { IResumeBuilderBasicDetailsProps } from ".";
+import { IResumeEducationFormProps } from ".";
 
-export const ResumeBuilderBasicDetails: React.FC<IResumeBuilderBasicDetailsProps> = (props) => {
-  const { onChange, model } = props;
+export const ResumeEducationForm: React.FC<IResumeEducationFormProps> = (props) => {
+  const { onChange, index, model } = props;
 
   const onTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    onChange(id, value);
-  };
-
-  const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    onChange(id, value);
+    onChange(index, id, value);
   };
 
   return (
-    <div className="card p-4">
+    <div>
       <div className="form-row">
         <div className="form-group col">
           <label htmlFor="name" className={"small"}>
-            Name
+            Institute
           </label>
           <input
             type="text"
             className="form-control form-control-sm"
-            id="name"
+            id="institute"
             onChange={onTextChange}
-            value={model.name}
+            value={model.institute}
           />
         </div>
       </div>
       <div className="form-row">
         <div className="form-group col">
           <label htmlFor="email" className={"small"}>
-            Email
+            Degree
           </label>
           <input
-            type="email"
+            type="text"
             className="form-control form-control-sm"
-            id="email"
+            id="degree"
             onChange={onTextChange}
-            value={model.email}
-          />
-        </div>
-      </div>
-      <div className="form-row">
-        <div className="form-group col">
-          <label htmlFor="address" className={"small"}>
-            Address
-          </label>
-          <textarea
-            className="form-control form-control-sm"
-            id="address"
-            onChange={onTextAreaChange}
-            value={model.address}
+            value={model.degree}
           />
         </div>
       </div>
       <div className="form-row">
         <div className="form-group col">
           <label htmlFor="phone" className={"small"}>
-            Phone
+            Year
           </label>
           <input
-            type="phone"
+            type="number"
             className="form-control form-control-sm"
-            id="phone"
+            id="year"
             onChange={onTextChange}
-            value={model.phone}
+            value={model.year}
           />
         </div>
       </div>
